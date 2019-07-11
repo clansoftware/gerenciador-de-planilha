@@ -1,18 +1,29 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 	<meta charset="utf-8">
 	<title><?php echo SISTEM_NAME; ?></title>
+  <!-- for FF, Chrome, Opera -->
+  <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icon.png'); ?>" sizes="16x16">
+  <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icon.png'); ?>" sizes="32x32">
+
+  <!-- for IE -->
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('assets/img/icon.ico'); ?>"/>
 
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css?v='.VERSSION); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/jquery.dataTables.min.css?v='.VERSSION); ?>">
 
-	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.3.1.js?v='.VERSSION); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-latest.min.js?v='.VERSSION); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/popper.min.js?v='.VERSSION); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js?v='.VERSSION); ?>"></script>
+
+  <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.min.js?v='.VERSSION); ?>"></script>
+
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.dataTables.min.js?v='.VERSSION); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/cep.js?v='.VERSSION); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/functions_global.js?v='.VERSSION); ?>"></script>
 </head>
 <body>
    <header>
