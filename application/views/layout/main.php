@@ -4,7 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="pt-br">
 <head>
 	<meta charset="utf-8">
-	<title><?php echo SISTEM_NAME; ?></title>
+	<title>
+    <?php 
+      if(isset($_SESSION['nome_sistema']) && $_SESSION['nome_sistema'] != 0) {
+        echo $_SESSION['nome_sistema'];
+      } else {
+        echo SISTEM_NAME;
+      } ?>
+  </title>
   <!-- for FF, Chrome, Opera -->
   <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icon.png'); ?>" sizes="16x16">
   <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icon.png'); ?>" sizes="32x32">
@@ -29,6 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script type="text/javascript" src="<?php echo base_url('assets/js/functions_global.js?v='.VERSSION); ?>"></script>
 </head>
 <body>
+<?php if(isset($_SESSION['instalacao']) && $_SESSION['instalacao'] == 1) { ?>
    <header>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -48,6 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </nav>
 </header>
+<?php } ?>
 <br/>
 <br/>
 <br/>

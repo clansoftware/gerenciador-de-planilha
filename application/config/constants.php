@@ -88,5 +88,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /**
  * @see Minhas constantes
 */
-define('SISTEM_NAME', 'Recruta+');
+define('SISTEM_NAME', 'CSV++');
 define('VERSSION', '1');
