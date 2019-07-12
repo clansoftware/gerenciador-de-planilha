@@ -1,49 +1,50 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
-	* @author Santos L. victor
-*/
-
-class Pessoa extends CI_Controller {
-
-	public static $arquivo = "pessoas";
+ * Application Controller Class
+ *
+ * This class object is the super class that every library in
+ * CodeIgniter will be assigned to.
+ *
+ * @package		Application
+ * @subpackage	Core
+ * @category	Core
+ * @author		Santos L. Victor
+ */
+class MY_Controller extends CI_Controller {
 
 	/**
-		* @see Responsável por listar~os registros do excel .csv
-	*/
-	public function index() {
-		$fields = $this->ler_arquivo(self::$arquivo, 0, -1, 0);
-		$data = array(
-			'view' => 'pessoa/index',
-			'data' => $this->ler_arquivo(self::$arquivo),
-			'fields' => $fields['data'][0]
-			);
+	 * Class constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		/* inicia-se como se não tivesse instalado */
+		$_SESSION['instalacao'] = 0;
 
-		$this->load->view('layout/main', $data);
-	}
-
-	public function add() {
-		$data = array('view' => 'pessoa/add');
-		$fields = $this->ler_arquivo(self::$arquivo, 0, -1, 0);
-		$data['fields'] = $fields['data'][0];
-
-
-		if (isset($_POST) && !empty($_POST)) {
-			$errors = array();
-			if(empty($errors)) {
-				$data = array(
-					'view' => 'pessoa/add',
-					'type' => 'success',
-					'msg' => 'Pessoa cadastrada com sucesso'
-					);
-			} else {
-				$data['type'] = 'warning';
-				$data['msg'] = $errors;
-				$data['data'] = $_POST;
+		if(isset($_GET['acao']) && !empty($_GET['acao'])) {
+			switch ($_GET['acao']) {
+				case 'reset_config':
+					@session_destroy();
+					break;
+				
+				default:
+					die('Nenhuma ação ativada');
+					break;
 			}
 		}
+		
+		$data = $this->ler_arquivo('configuracao', 1, -1);
 
-		$this->load->view('layout/main', $data);
+		/* verifica-se as configurações se houver */
+		foreach ($data['data'][1] as $key => $value) {
+			if($data['data'][2][$key] != 0 && $data['data'][2][$key]!= '') {
+				$_SESSION[$value] = $data['data'][2][$key];
+			}
+		}
 	}
 
 	public function ler_arquivo($arquivo, $linha = 0, $init = 0, $limit = 0) {
@@ -90,5 +91,4 @@ class Pessoa extends CI_Controller {
 		fclose($handle);
 		return true;
 	}
-
 }
