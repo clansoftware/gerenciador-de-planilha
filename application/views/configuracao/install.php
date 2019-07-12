@@ -76,11 +76,17 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label">Conectar a um Banco de Dados</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                    <input type="checkbox" name="banco_de_dados" />
+                    Habilitar Conexão a Base de Dados através do Host:
+                    <input name="bd_host" maxlength="200" type="text" class="form-control" placeholder="Host" />
+                    <input name="bd_porta" maxlength="200" type="text" class="form-control" placeholder="Porta" />
+                    <input name="bd_banco" maxlength="200" type="text" class="form-control" placeholder="Data Base" />
+                    <input name="bd_usuario" maxlength="200" type="text" class="form-control" placeholder="Usuário" />
+                    <input name="bd_senha" maxlength="200" type="password" class="form-control" placeholder="Senha" />
                 </div>
                 <div class="form-group">
                     <label class="control-label">Mapa Set</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                    <input type="file" class="disable" placeholder="" readonly="true" disable="true"/>
                 </div>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Avançar</button>
             </div>
@@ -93,12 +99,26 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label">Controllar acesso via login</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                    <br/>
+                    <input type="checkbox" name="controlle_acesso" />
+                    Habilitar tela de login para acessar o sistema
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Usuários</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
-                </div>
+
+                <fieldset>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="yourmail@example.com" name="email" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input name="usuario_senha[]" maxlength="200" type="text" required="required" class="form-control" placeholder="Senha" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="usuario_nivel" type="checkbox" value="Remember Me"> Administrador, ou seja, pode gerenciar usuários
+                        </label>
+                    </div>
+                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                </fieldset>
+                
                 <button class="btn btn-success pull-right" type="submit">Finalizar!</button>
             </div>
         </div>
