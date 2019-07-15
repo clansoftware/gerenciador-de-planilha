@@ -9,21 +9,21 @@ Sistema para gerenciamento de planilhas, com possibilidade de múltiplos acessos
 	</tr>
 	<tr>
 		<td>
-			<img src="readme/php7.png" width="48px" />
+			<img src="../../readme/php7.png" width="48px" />
 		</td>
 		<td>PHP 7.2</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>
-			<img src="readme/ci.jpg" width="48px" />
+			<img src="../../readme/ci.jpg" width="48px" />
 		</td>
 		<td>Code Igniter 3.2</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>
-			<img src="readme/mysql.png" width="48px" />
+			<img src="../../readme/mysql.png" width="48px" />
 		</td>
 		<td>MySQL</td>
 		<td></td>
