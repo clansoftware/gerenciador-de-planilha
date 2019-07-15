@@ -1,9 +1,22 @@
 <div class="table-responsive-sm">
+<?php if(!empty($filters)) { ?>
+    <table cellspacing="5" cellpadding="5" border="0" class="table table-sm table-hover table-striped table-bordered table-borderless display"class="table table-sm table-hover table-striped table-bordered table-borderless display">
+        <tbody>
+            <tr class="<?php echo !isset($filters['needAge'])?'d-none':'';?>" >
+                <td>
+                    Idade:
+                    <input type="text" id="age_min" name="minima" placeholder="De">
+                    <input type="text" id="age_max" name="maxima" placeholder="Até">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<?php } ?>
     <table id="example" class="table table-sm table-hover table-striped table-bordered table-borderless display" style="width:100%">
         <thead class="thead-dark">
             <tr>
                 <?php foreach ($fields as $key => $value) {
-                    echo "<th>".utf8_decode(str_replace(array('-','_'), ' ', $value))."</th>";
+                    echo "<th>".utf8_decode(str_replace(array('-','_'), ' ', ucfirst($value)))."</th>";
                 } ?>
             </tr>
         </thead>
@@ -19,7 +32,7 @@
         <tfoot>
             <tr>
                 <?php foreach ($fields as $key => $value) {
-                    echo "<th>".utf8_decode(str_replace(array('-','_'), ' ', $value))."</th>";
+                    echo "<th>".utf8_decode(str_replace(array('-','_'), ' ', ucfirst($value)))."</th>";
                 } ?>
             </tr>
         </tfoot>
@@ -27,16 +40,38 @@
 </div>
 
 <script type="text/javascript">
+<?php if (!empty($filters)) { 
+        if (isset($filters['needAge'])) { ?>
+            /* Custom filtering function which will search data in column four between two values */
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                    var min = parseInt( $('#age_min').val(), 10 );
+                    var max = parseInt( $('#age_max').val(), 10 );
+                    var age = parseFloat( data[<?php echo $filters['needAge'] ?>] ) || 0; // use data for the age column
+             
+                    if ( ( isNaN( min ) && isNaN( max ) ) ||
+                         ( isNaN( min ) && age <= max ) ||
+                         ( min <= age   && isNaN( max ) ) ||
+                         ( min <= age   && age <= max ) )
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+    <?php } ?>
+<?php } ?>
 $(document).ready(function() {
-    // $.fn.dataTable.Buttons.swfPath = '../../swf/flashExport.swf';
-
-    $('#example').DataTable({
+    var table = $('#example').DataTable({
         "language": {
             "url": "<?php echo base_url('assets/json/Portuguese-Brasil.json'); ?>"
         },
         dom: 'Bfrtip',
         buttons: [
-            'colvis',
+            {
+                extend: 'colvis',
+                text: 'Colunas Visíveis',
+            },
             {
                 text: 'Cadastrar',
                 action: function ( e, dt, node, config ) {
@@ -65,5 +100,13 @@ $(document).ready(function() {
             }
         ]
     });
+    
+    <?php { ?>
+        // Event listener to the two range filtering inputs to redraw on input
+        $('#age_min, #age_max').keyup( function() {
+            table.draw();
+        } );
+    <?php } ?>
+
 } );
 </script>

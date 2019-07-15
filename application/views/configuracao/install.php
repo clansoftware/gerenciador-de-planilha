@@ -1,5 +1,6 @@
 <div class="container">
     <div class="stepwizard">
+        <img src="<?php echo base_url('assets/readme/csv_128.png'); ?>" />
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>

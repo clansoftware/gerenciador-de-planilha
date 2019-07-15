@@ -13,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       } ?>
   </title>
   <!-- for FF, Chrome, Opera -->
-  <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icon.png'); ?>" sizes="16x16">
-  <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icon.png'); ?>" sizes="32x32">
+  <link rel="icon" type="image/png" href="<?php echo base_url('assets/readme/csv_48.png'); ?>" sizes="16x16">
+  <link rel="icon" type="image/png" href="<?php echo base_url('assets/readme/csv_48.png'); ?>" sizes="32x32">
 
   <!-- for IE -->
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('assets/img/icon.ico'); ?>"/>
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php if(isset($_SESSION['instalacao']) && $_SESSION['instalacao'] == 1) { ?>
    <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-secondary fixed-top">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
     <a class="navbar-brand" href="#"><?php echo SISTEM_NAME; ?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

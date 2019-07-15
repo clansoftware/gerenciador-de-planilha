@@ -1,3 +1,3 @@
-Nome,cpf,rg,telefone,celular,cep,e-mail,status,data,data_atualizacao
-Victor Luis,333.146.077-43,,,(41) 99850-0111,19911-200,,Concluído,,
-Debora Zanard,146.078.342-33,,(41) 3245-2213,,,de.bora@hotmail.com,Pendente,,
+Nome,cpf,rg,telefone,celular,cep,e-mail,status,data,data_atualizacao,data de nascimento
+Victor Luis,333.146.077-43,,,(41) 99850-0111,19911-200,,Concluído,,,
+Debora Zanard,146.078.342-33,,(41) 3245-2213,,,de.bora@hotmail.com,Pendente,,,

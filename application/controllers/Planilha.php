@@ -19,6 +19,7 @@ class Planilha extends MY_Controller {
 			'fields' => $fields['data'][0]
 			);
 
+		$data['filters'] = $this->hasmap($fields['data'][0]);
 		$this->load->view('layout/main', $data);
 	}
 
@@ -45,5 +46,24 @@ class Planilha extends MY_Controller {
 		}
 
 		$this->load->view('layout/main', $data);
+	}
+
+	public function hasmap($fileds) {
+		$data = array();
+		foreach ($fileds as $key => $value) {
+			$arr = explode(' ', $value);
+			if(count($arr) > 1) {
+				foreach ($arr as $k => $val) {
+					if(strtolower($val)=='nascimento' || strtolower($val)=='nascimento') {
+						$data['needAge'] = $key;
+					}
+				}
+			} else {
+				if(strtolower($value)=='nascimento' || strtolower($value)=='nascimento') {
+					$data['needAge'] = $key;
+				}
+			}
+		}
+		return $data;
 	}
 }
