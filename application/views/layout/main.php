@@ -26,6 +26,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/install.css?v='.VERSSION); ?>">
 
   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-latest.min.js?v='.VERSSION); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/angular.1.6.9.min.js?v='.VERSSION); ?>"></script>
+
 	<script type="text/javascript" src="<?php echo base_url('assets/js/popper.min.js?v='.VERSSION); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js?v='.VERSSION); ?>"></script>
 
@@ -39,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php if(isset($_SESSION['instalacao']) && $_SESSION['instalacao'] == 1) { ?>
    <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
     <a class="navbar-brand" href="#"><?php echo SISTEM_NAME; ?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -50,7 +52,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a class="nav-link" href="<?php echo base_url('pessoa'); ?>">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('pessoa/add'); ?>">Cadastrar</a>
+          <a class="nav-link" href="<?php echo base_url('planilha'); ?>">Planilhar</a>
+        </li>
+        <li class="nav-item <?php echo (isset($_SESSION['banco_de_dados']) && $_SESSION['banco_de_dados']==1)?'none':'none';?> ">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Persistir</a>
         </li>
       </ul>
     </div>
@@ -65,5 +70,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$this->load->view($view);
 	?>
 </main>
+
+<?php 
+  if (isset($_SESSION['banco_de_dados']) && $_SESSION['banco_de_dados']==1) {
+    $this->load->view('modals/persistencia');
+  }
+?>
 </body>
 </html>

@@ -32,7 +32,7 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label">Diretório das planilha</label>
-                    <input name="diretorio_planilha" maxlength="200" type="text" required="required" class="form-control" placeholder="Diretório das Planilhas" />
+                    <input name="diretorio_planilha" type="file" required="required" class="form-control" placeholder="Diretório das Planilhas" />
                 </div>
                 <div class="form-group">
                     <label class="control-label">Nome do Sistema</label>
@@ -41,16 +41,19 @@
                 <button class="btn btn-primary nextBtn pull-right" type="button">Avançar</button>
             </div>
         </div>
-        
         <div class="panel panel-primary setup-content" id="step-2">
             <div class="panel-heading">
                  <h3 class="panel-title">Funções Externas</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" ng-controller="myController">
                 <div class="form-group">
                     <label class="control-label">Habilitar envio de SMS? </label><br>
-                 <input maxlength="100" type="checkbox" name="sendSMS" />
+                 <input maxlength="100" type="checkbox" name="sendSMS" ng-model="hideSalary">
                  Habilitar enviar SMS aos possíveis números de celular identificados, através da API de envio:
+                 <div ng-hide="hideSalary">
+                   
+                </div>
+
                 </div>
 
                 <div class="form-group">

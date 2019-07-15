@@ -3,7 +3,7 @@
         <thead class="thead-dark">
             <tr>
                 <?php foreach ($fields as $key => $value) {
-                    echo "<th>$value</th>";
+                    echo "<th>".utf8_decode($value)."</th>";
                 } ?>
             </tr>
         </thead>
@@ -11,7 +11,7 @@
             <?php foreach ($data['data'] as $key => $value) { ?>
             <tr>
                 <?php foreach ($fields as $i => $val) {
-                    echo "<td>$value[$i]</td>";
+                    echo "<td>".utf8_decode($value[$i])."</td>";
                 } ?>
             </tr>
           <?php } ?>
@@ -19,7 +19,7 @@
         <tfoot>
             <tr>
                 <?php foreach ($fields as $key => $value) {
-                    echo "<th>$value</th>";
+                    echo "<th>".utf8_decode($value)."</th>";
                 } ?>
             </tr>
         </tfoot>
@@ -30,7 +30,7 @@
 $(document).ready(function() {
     $('#example').DataTable({
             "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+                "url": "<?php echo base_url('assets/json/Portuguese-Brasil.json'); ?>"
             }
     });
 } );
