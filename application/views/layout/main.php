@@ -22,6 +22,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css?v='.VERSSION); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/jquery.dataTables.min.css?v='.VERSSION); ?>">
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css " />
+
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css?v='.VERSSION); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/install.css?v='.VERSSION); ?>">
 
@@ -34,6 +37,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.min.js?v='.VERSSION); ?>"></script>
 
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.dataTables.min.js?v='.VERSSION); ?>"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js "></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js "></script>
+
   <script type="text/javascript" src="<?php echo base_url('assets/js/cep.js?v='.VERSSION); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/functions_global.js?v='.VERSSION); ?>"></script>
 </head>
@@ -49,13 +60,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="<?php echo base_url('pessoa'); ?>">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo base_url(); ?>">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('planilha'); ?>">Planilhar</a>
         </li>
         <li class="nav-item <?php echo (isset($_SESSION['banco_de_dados']) && $_SESSION['banco_de_dados']==1)?'none':'none';?> ">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Persistir</a>
+        </li>
+        <li class="nav-item <?php echo (isset($_SESSION['banco_de_dados']) && $_SESSION['banco_de_dados']==1)?'none':'none';?> ">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Diferencial</a>
+        </li>
+        <li class="nav-item <?php echo (isset($_SESSION['banco_de_dados']) && $_SESSION['banco_de_dados']==1)?'none':'none';?> ">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Log</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url('configuracao'); ?>">Configurações</a>
         </li>
       </ul>
     </div>

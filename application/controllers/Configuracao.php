@@ -26,7 +26,7 @@ class Configuracao extends MY_Controller {
 			$this->load->view('layout/main', $data);
 		} else {
 			$data = array(
-				'view' => 'configuracao/install',
+				'view' => 'configuracao/edit',
 				'type' => 'danger',
 				'type' => 'Atenção você já tem uma configuração !'
 				);

@@ -12,5 +12,5 @@
 			<input type="submit" value="Salvar" class="btn btn-primary pull-right" <?php empty($fields)?'disabled':''; ?>>
 		</form>
 	</div>
-	<a href="<?php echo base_url(); ?>">Retornar a lista</a>
+	<a href="<?php echo base_url('planilha'); ?>">Retornar a lista</a>
 </div>
