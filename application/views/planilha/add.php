@@ -6,7 +6,7 @@
 			<?php foreach ($fields as $key => $value) {
 				echo "<div class='form-group'>";
 		    	echo "<label for='input$value'><b>$value</b></label>";
-				echo "<input type='text' value='".(!empty($_POST[$value])?$_POST[$value]:'')."' placeholder='$value' name='$value' class='form-control $value' />";
+				echo "<input type='text' value='".(!empty($_POST[$value])?$_POST[$value]:'')."' placeholder='$value' name='$value' class='form-control ".strtolower($value)."' />";
 			} ?>
 			<br/>
 			<input type="submit" value="Salvar" class="btn btn-primary pull-right" <?php empty($fields)?'disabled':''; ?>>
