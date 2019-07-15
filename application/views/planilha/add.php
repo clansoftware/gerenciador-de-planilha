@@ -2,7 +2,7 @@
 	<h1>Cadastrar Pessoa!</h1>
 
 	<div id="body">
-		<form method="post" action="<?php echo base_url('pessoa/add'); ?>">
+		<form method="post" action="<?php echo base_url('planilha/add'); ?>">
 			<?php foreach ($fields as $key => $value) {
 				echo "<div class='form-group'>";
 		    	echo "<label for='input$value'><b>$value</b></label>";

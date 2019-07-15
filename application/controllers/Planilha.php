@@ -31,8 +31,9 @@ class Planilha extends MY_Controller {
 		if (isset($_POST) && !empty($_POST)) {
 			$errors = array();
 			if(empty($errors)) {
+				
 				$data = array(
-					'view' => 'planilha/add',
+					'view' => 'planilha/index',
 					'type' => 'success',
 					'msg' => 'Pessoa cadastrada com sucesso'
 					);

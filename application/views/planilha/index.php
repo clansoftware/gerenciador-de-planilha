@@ -36,6 +36,7 @@ $(document).ready(function() {
         },
         dom: 'Bfrtip',
         buttons: [
+            'colvis',
             {
                 text: 'Cadastrar',
                 action: function ( e, dt, node, config ) {
