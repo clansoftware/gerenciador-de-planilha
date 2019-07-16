@@ -9,20 +9,23 @@ class Planilha extends MY_Controller {
 	public static $arquivo = "pessoas";
 
 	/**
-		* @see Responsável por listar~os registros do excel .csv
+		* @see Responsável por listar os registros do excel .csv
 	*/
 	public function index() {
 		$fields = MY_Controller::ler_arquivo(self::$arquivo, 0, -1, 0);
 		$data = array(
 			'view' => 'planilha/index',
 			'data' => MY_Controller::ler_arquivo(self::$arquivo),
-			'fields' => $fields['data'][0]
+			'fields' => !empty($fields['data'][0])?$fields['data'][0]:array()
 			);
 
-		$data['filters'] = $this->hasmap($fields['data'][0]);
+		$data['filters'] = !empty($fields['data'][0])?$this->hasmap($fields['data'][0]):null;
 		$this->load->view('layout/main', $data);
 	}
 
+	/**
+		* @see responsável por salvar novos registros na planilha
+	*/
 	public function add() {
 		$data = array('view' => 'planilha/add');
 		$fields = MY_Controller::ler_arquivo(self::$arquivo, 0, -1, 0);
@@ -32,12 +35,24 @@ class Planilha extends MY_Controller {
 		if (isset($_POST) && !empty($_POST)) {
 			$errors = array();
 			if(empty($errors)) {
-				
-				$data = array(
-					'view' => 'planilha/index',
-					'type' => 'success',
-					'msg' => 'Pessoa cadastrada com sucesso'
-					);
+				if (MY_Controller::inserir(self::$arquivo, $_POST)) {
+					$fields = MY_Controller::ler_arquivo(self::$arquivo, 0, -1, 0);
+					$data = array(
+						'view' => 'planilha/index',
+						'type' => 'success',
+						'msg' => 'Pessoa cadastrada com sucesso',
+						'data' => MY_Controller::ler_arquivo(self::$arquivo),
+						'fields' => !empty($fields['data'][0])?$fields['data'][0]:array()
+						);
+					$data['filters'] = !empty($fields['data'][0])?$this->hasmap($fields['data'][0]):null;
+				} else {
+					$data = array(
+						'view' => 'planilha/index',
+						'type' => 'danger',
+						'data' => $_POST,
+						'msg' => 'Não foi possível inserir, tente novamente'
+						);
+				}
 			} else {
 				$data['type'] = 'warning';
 				$data['msg'] = $errors;

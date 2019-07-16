@@ -50,33 +50,36 @@ class MY_Controller extends CI_Controller {
 	public function ler_arquivo($arquivo, $linha = 0, $init = 0, $limit = 0) {
 		$data = array(
 			'type' => 'danger',
+			'data' => array(),
 			'msg' => 'Arquivo não encontrado!<br/>'
 			);
 
-		if (($handle = fopen(base_url('assets/data/'.$arquivo.".csv"), "r")) !== FALSE) {
-			$data = array(
-				'type' => 'warning',
-				'msg' => 'Arquivo vazio!<br>',
-				'data' => array(),
-				'rows' => 0
-				);
+		if(file_exists(__DIR__.'/../../assets/data/'.$arquivo.'.csv') || $arquivo=='configuracao') {
+			if (($handle = fopen(base_url('assets/data/'.$arquivo.".csv"), "r")) !== FALSE) {
+				$data = array(
+					'type' => 'warning',
+					'msg' => 'Arquivo vazio!<br>',
+					'data' => array(),
+					'rows' => 0
+					);
 
-			while (($content = fgetcsv($handle, 1000, ",")) !== FALSE) {
-				$num = count($content);
-				if ($linha > $init && (count($data['data']) <= $limit || $limit >= 0)) {
-					for ($c=0; $c < $num; $c++) {
-						$data['data'][$linha][] = utf8_encode($content[$c]);
+				while (($content = fgetcsv($handle, 1000, ",")) !== FALSE) {
+					$num = count($content);
+					if ($linha > $init && (count($data['data']) <= $limit || $limit >= 0)) {
+						for ($c=0; $c < $num; $c++) {
+							$data['data'][$linha][] = utf8_encode($content[$c]);
+						}
 					}
+					$linha++;
 				}
-				$linha++;
-			}
 
-			if (isset($data['data']) && !empty($data['data'])) {
-				$data['type'] = 'success';
-				$data['msg'] = 'Arquivo carregado com sucesso!<br>';
-				$data['rows'] = $linha;
+				if (isset($data['data']) && !empty($data['data'])) {
+					$data['type'] = 'success';
+					$data['msg'] = 'Arquivo carregado com sucesso!<br>';
+					$data['rows'] = $linha;
+				}
+				fclose($handle);
 			}
-			fclose($handle);
 		}
 		return $data;
 	}
@@ -86,9 +89,19 @@ class MY_Controller extends CI_Controller {
 	* @param [array] $line is an array of string values here
 	*/
 	public function inserir($arquivo, $line) {
-		$handle = fopen( base_url('assets/data/'.$arquivo.".csv"), "a");
+		$handle = fopen(__DIR__.'/../../assets/data/'.$arquivo.".csv", "a");
 		fputcsv($handle, $line);
 		fclose($handle);
 		return true;
+	}
+
+	/**
+		* @see 
+	*/
+	public function isEmail() {
+		if (1==2) {
+			return true;
+		}
+		return false;
 	}
 }
