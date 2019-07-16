@@ -90,3 +90,10 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 */
 define('SISTEM_NAME', 'CSV++');
 define('VERSSION', '1');
+
+
+/**
+ * @see minhas configurações de envio de email
+*/
+define('GMAIL', 'pr.victorluissantos@gmail');
+define('GSENHA', '6YHNFRT54');
