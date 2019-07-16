@@ -6,8 +6,7 @@
 			<table class="table table-sm table-hover table-striped table-bordered table-borderless display pull-left">
 				<thead>
 					<th colspan="2" align="center">
-						<img class="pull-left" src="<?php echo base_url('assets/readme/csv_48.png'); ?>" />
-						<h3>CSV++</h3>
+						<img class="pull-left" src="<?php echo base_url('assets/img/csv_logo_c.png'); ?>" />
 					</th>
 				</thead>
 				<tbody>
@@ -16,7 +15,47 @@
 							<img src="<?php echo base_url('assets/readme/tick.png'); ?>" width="18px"/>
 						</td>
 						<td>
-							Controle de acesso via credenciais de login e senha
+							Controle de acesso via credenciais de login e senha, com possibilidade de log, controlando quais usuários fizeram quais alterações.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="<?php echo base_url('assets/readme/tick.png'); ?>" width="18px"/>
+						</td>
+						<td>
+							Padronização na inserção de dados
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="<?php echo base_url('assets/readme/tick.png'); ?>" width="18px"/>
+						</td>
+						<td>
+							Busca inteligênte e integrada, ao inserir dados de possível consulta, ocorre o autopreenchiemnto com o que for encontrado em mecanismos de buscas.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="<?php echo base_url('assets/readme/tick.png'); ?>" width="18px"/>
+						</td>
+						<td>
+							Busca e valida CEP no banco de endereços do correios
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="<?php echo base_url('assets/readme/tick.png'); ?>" width="18px"/>
+						</td>
+						<td>
+							Busca e valida CNPJ no banco de dados da Junta Comercial.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="<?php echo base_url('assets/readme/tick.png'); ?>" width="18px"/>
+						</td>
+						<td>
+							Busca informações e valida CPF com Data de Nascimento no BNE.
 						</td>
 					</tr>
 					<tr>

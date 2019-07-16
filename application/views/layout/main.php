@@ -55,7 +55,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <header>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-    <a class="navbar-brand" href="#"><?php echo SISTEM_NAME; ?></a>
+    <a class="navbar-brand" href="#">
+      <img src="<?php echo base_url('assets/img/csv_logo_w.png'); ?>" width="128px"/>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
