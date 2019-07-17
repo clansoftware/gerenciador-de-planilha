@@ -104,4 +104,28 @@ class MY_Controller extends CI_Controller {
 		}
 		return false;
 	}
+
+
+	/**
+		* @see Verifica se um determinado número tem whatsapp
+		* @return // https://wa.me/55DD000000000?text=Olá,%20meu%20amigo!
+	*/
+	public static function isWhattsapp($number) {
+		if(!empty($number)) {
+			$number = str_replace(array(' ','-','(',')','.',':'), '', $number);
+			$validNumber = null;
+			for ($i=0; $i < strlen($number); $i++) { 
+				if($i < 11) {
+					if ($i == 2 && $number[$i] != '9') { // verifica se esta no 9 digito e se ele é número 9
+						$validNumber = $validNumber.'9'.$number[$i];
+					} else {
+						$validNumber = $validNumber.$number[$i];
+					}
+				}
+			}
+		} else {
+			$validNumber = $number;	
+		}
+		return strlen($validNumber)>=11?'55'.$validNumber:false;
+	}
 }

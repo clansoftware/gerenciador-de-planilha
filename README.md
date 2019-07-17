@@ -36,6 +36,13 @@ Sistema para gerenciamento de planilhas, com possibilidade de múltiplos acessos
 	</tr>
 	<tr>
 		<td>
+			<img src="assets/readme/firebase.png" width="48px" />
+		</td>
+		<td>FireBase</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
 			<img src="assets/readme/datatable.png" width="48px" />
 		</td>
 		<td>DataTables</td>

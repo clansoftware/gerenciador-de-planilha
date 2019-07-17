@@ -24,7 +24,25 @@
             <?php foreach ($data['data'] as $key => $value) { ?>
             <tr>
                 <?php foreach ($fields as $i => $val) {
-                    echo "<td>".utf8_decode($value[$i])."</td>";
+                    if (strtolower($fields[$i]) == "celular") {
+                        echo "<td>";
+                        echo $value[$i];
+                        $number = MY_Controller::isWhattsapp($value[$i]);
+                        if($number!=false) {
+                            echo "<a href='https://api.whatsapp.com/send?phone=$number&text=Ol%c3%a1%2c%20meu%20amigo%21&source=&data=' target='_blank'>";
+                                echo "<img src='".base_url('assets/img/whats.png')."' />";
+                            echo "</a>";
+                        }
+                        echo "</td>";
+                    } else if (str_replace('-', '', strtolower($fields[$i])) == "email") {
+                        echo "<td>";
+                            echo $value[$i];
+                            echo "<img src='".base_url('assets/img/mail.png')."' />";
+                        echo "</td>";
+                    } else {
+
+                        echo "<td>".utf8_decode($value[$i])."</td>";
+                    }
                 } ?>
             </tr>
           <?php } ?>

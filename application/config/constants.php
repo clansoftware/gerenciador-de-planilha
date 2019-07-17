@@ -95,5 +95,5 @@ define('VERSSION', '1');
 /**
  * @see minhas configurações de envio de email
 */
-define('GMAIL', 'pr.victorluissantos@gmail');
-define('GSENHA', '6YHNFRT54');
+define('GMAIL', 'pr.victorluissantos@gmail.com');
+define('GSENHA', '');

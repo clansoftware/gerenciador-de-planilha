@@ -20,8 +20,14 @@ class Sendemail extends MY_Controller {
         $objMail = new PHPMailer\PHPMailer\PHPMailer();
         return $objMail;
     }
+
     /**
 		* @see Responsável por enviar email's
+		*	Links that fix the problem (you must be logged into google account):
+		*	https://security.google.com/settings/security/activity?hl=en&pli=1
+		*	https://www.google.com/settings/u/1/security/lesssecureapps
+		*	https://accounts.google.com/b/0/DisplayUnlockCaptcha
+		*	Some explanation of what happens:
     */
     public function send() {
     	$data = array(
@@ -41,10 +47,16 @@ class Sendemail extends MY_Controller {
 		    		'msg' => 'Não foi possível enviar o email',
 		    		'data' => $_GET
 		    	);
-		    	$mail = $this->load();
+		
+		      	require_once(APPPATH.'third_party/PHPMailer/src/PHPMailer.php');
+		        require_once(APPPATH.'third_party/PHPMailer/src/SMTP.php');
+
+		    	$mail = new PHPMailer\PHPMailer\PHPMailer();
+		    	
 
 				// SMTP configuration
 				$mail->isSMTP();
+				$mail->SMTPDebug = 0; // set 1 case execute in mode debug
 				$mail->Host     = 'smtp.gmail.com';
 				$mail->SMTPAuth = true;
 				$mail->Username = GMAIL;
@@ -76,7 +88,7 @@ class Sendemail extends MY_Controller {
 				if(!$mail->send()){
 			    	$data = array(
 			    		'type' => 'danger',
-			    		'msg' => 'Email enviado com sucesso \nMailer Error: ' . $mail->ErrorInfo,
+			    		'msg' => 'Não foi possível entregar o email \nMailer Error: ' . $mail->ErrorInfo,
 			    		'data' => $_GET
 			    	);
 				}else{
@@ -88,5 +100,6 @@ class Sendemail extends MY_Controller {
 				}
 	    	}
     	}
+    	die(json_encode($data));
     }
 }
