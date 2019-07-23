@@ -6,7 +6,7 @@
 # gerenciador-de-planilha
 Sistema para gerenciamento de planilhas, com possibilidade de múltiplos acessos por vários usuários em uma rede (intranet), com geração de gráficos e estatísticas
 </p>
-<img src="assets/readme/first_page.png" width="640px" />
+<img src="assets/readme/first_page.png" />
 <br/>
 <table border="1">
 	<tr>
