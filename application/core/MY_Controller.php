@@ -37,13 +37,19 @@ class MY_Controller extends CI_Controller {
 			}
 		}
 		
-		$data = $this->ler_arquivo('configuracao', 1, -1);
+		$data = $this->ler_arquivo('install', 1, -1);
 
 		/* verifica-se as configurações se houver */
-		foreach ($data['data'][1] as $key => $value) {
-			if($data['data'][2][$key] != 0 && $data['data'][2][$key]!= '') {
-				$_SESSION[$value] = $data['data'][2][$key];
+		if(!empty($data['data'])) {
+			@session_destroy();
+			foreach (json_decode($data['data'][1][0]) as $key => $value) {		
+				if (is_array($value)) {
+					$_SESSION[$key] = json_encode($value);
+				} else {
+					$_SESSION[$key] = $value;
+				}
 			}
+			$_SESSION['instalacao'] = 1;
 		}
 	}
 
@@ -54,8 +60,8 @@ class MY_Controller extends CI_Controller {
 			'msg' => 'Arquivo não encontrado!<br/>'
 			);
 
-		if(file_exists(__DIR__.'/../../assets/data/'.$arquivo.'.csv') || $arquivo=='configuracao') {
-			if (($handle = fopen(base_url('assets/data/'.$arquivo.".csv"), "r")) !== FALSE) {
+		if(file_exists(__DIR__.'/../../assets/data/'.$arquivo.'.csv')) {
+			if (($handle = fopen(base_url('assets/data/'.$arquivo.".csv"), "!r")) !== FALSE) {
 				$data = array(
 					'type' => 'warning',
 					'msg' => 'Arquivo vazio!<br>',
@@ -89,18 +95,38 @@ class MY_Controller extends CI_Controller {
 	* @param [array] $line is an array of string values here
 	*/
 	public function inserir($arquivo, $line) {
-		$handle = fopen(__DIR__.'/../../assets/data/'.$arquivo.".csv", "a");
-		fputcsv($handle, $line);
-		fclose($handle);
-		return true;
+		if (empty($arquivo) || empty($line)) {
+			return false;
+		} else {
+			$file = __DIR__.'/../../assets/data/'.$arquivo.".csv";
+			if (!file_exists($file) || strtolower($arquivo)=='install') {
+				$out = fopen($file, 'w');
+			   	fputcsv($out, array(json_encode($line)));
+				fclose($out);
+				return true;
+			} else {
+				$handle = fopen($file, "wa");
+				fputcsv($handle, $line);
+				fclose($handle);
+				return true;
+			}
+		}
 	}
 
 	/**
-		* @see 
+		* @see Responsável por validar um email
+		* @author Santos L. Victor
+		* @return [bool] boolean, true or false
 	*/
-	public function isEmail() {
-		if (1==2) {
-			return true;
+	public static function isEmail($email) {
+		if (!empty($email)) {
+			$arr = explode('@', $email);
+			if (count($arr) == 2) {
+				$arr = explode('.com', $arr[1]);
+				if (strlen($arr[0]) > 1 && count($arr) >= 1) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -108,7 +134,7 @@ class MY_Controller extends CI_Controller {
 
 	/**
 		* @see Verifica se um determinado número tem whatsapp
-		* @return // https://wa.me/55DD000000000?text=Olá,%20meu%20amigo!
+		* @return [String] Retorna a url de envio da mensagem ou false se o número não for válido para o whattsapp
 	*/
 	public static function isWhattsapp($number) {
 		if(!empty($number)) {
@@ -128,4 +154,13 @@ class MY_Controller extends CI_Controller {
 		}
 		return strlen($validNumber)>=11?'55'.$validNumber:false;
 	}
+
+	public static function get_next_key($cuttent_key, $list) {
+		for ($i=$cuttent_key; $i < count($list); $i++) { 
+			if(!empty($list[$i])) {
+				return $i;
+			}
+		}
+	}
+
 }

@@ -1,20 +1,11 @@
 <div class="table-responsive-sm">
-<?php if(!empty($filters)) { ?>
-    <table cellspacing="5" cellpadding="5" border="0" class="table table-sm table-hover table-striped table-bordered table-borderless display"class="table table-sm table-hover table-striped table-bordered table-borderless display">
-        <tbody>
-            <tr class="<?php echo !isset($filters['needAge'])?'d-none':'';?>" >
-                <td>
-                    Idade:
-                    <input type="text" id="age_min" name="minima" placeholder="De">
-                    <input type="text" id="age_max" name="maxima" placeholder="Até">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-<?php } ?>
+    <?php $this->load->view('modals/filters'); ?>
     <table id="example" class="table table-sm table-hover table-striped table-bordered table-borderless display" style="width:100%">
         <thead class="thead-dark">
             <tr>
+                <th>
+                    <input type="checkbox" class="form-control" onclick="marc_all_check_page()"/>
+                </th>
                 <?php foreach ($fields as $key => $value) {
                     echo "<th>".utf8_decode(str_replace(array('-','_'), ' ', ucfirst($value)))."</th>";
                 } ?>
@@ -23,22 +14,24 @@
         <tbody>
             <?php foreach ($data['data'] as $key => $value) { ?>
             <tr>
+                <td></td>
                 <?php foreach ($fields as $i => $val) {
                     if (strtolower($fields[$i]) == "celular") {
-                        echo "<td>";
-                        echo $value[$i];
                         $number = MY_Controller::isWhattsapp($value[$i]);
                         if($number!=false) {
-                            echo "<a href='https://api.whatsapp.com/send?phone=$number&text=Ol%c3%a1%2c%20meu%20amigo%21&source=&data=' target='_blank'>";
-                                echo "<img src='".base_url('assets/img/whats.png')."' />";
-                            echo "</a>";
+                            echo "<td data-toggle='modal' data-target='#sendWhats' data-whats='https://api.whatsapp.com/send?phone=$number&text=Ol%c3%a1%2c%20meu%20amigo%21&source=&data=' target='modal'>";
+                                echo $value[$i];
+                            echo "</td>";
+                        } else {
+                            echo "<td>$value[$i]</td>";
                         }
-                        echo "</td>";
                     } else if (str_replace('-', '', strtolower($fields[$i])) == "email") {
-                        echo "<td>";
-                            echo $value[$i];
-                            echo "<img src='".base_url('assets/img/mail.png')."' />";
-                        echo "</td>";
+                        $email = MY_Controller::isEmail($value[$i]);
+                        if($email) {
+                            echo "<td data-toggle='modal' data-target='#sendEmail'>$value[$i]</td>";
+                        } else {
+                            echo "<td>$value[$i]</td>";
+                        }
                     } else {
 
                         echo "<td>".utf8_decode($value[$i])."</td>";
@@ -49,6 +42,9 @@
         </tbody>
         <tfoot>
             <tr>
+                <th>
+                    <input type="checkbox" class="form-control" onclick="marc_all_check_page()"/>
+                </th>
                 <?php foreach ($fields as $key => $value) {
                     echo "<th>".utf8_decode(str_replace(array('-','_'), ' ', ucfirst($value)))."</th>";
                 } ?>
@@ -56,7 +52,7 @@
         </tfoot>
     </table>
 </div>
-
+<?php $this->load->view('modals/cad_op'); ?>
 <script type="text/javascript">
 <?php if (!empty($filters)) { 
         if (isset($filters['needAge'])) { ?>
@@ -84,6 +80,16 @@ $(document).ready(function() {
         "language": {
             "url": "<?php echo base_url('assets/json/Portuguese-Brasil.json'); ?>"
         },
+        columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'multi',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
@@ -96,6 +102,54 @@ $(document).ready(function() {
                     window.location.href = "<?php echo base_url('planilha/add'); ?>";
                 }
             },
+            <?php if (isset($_SESSION['sms'])) { ?>
+            {
+                text: 'SMS',
+                action: function ( e, dt, node, config ) {
+                    $("#sendSMS").modal("show");
+                }
+            },
+            <?php } ?>
+            <?php if (isset($_SESSION['email'])) { ?>
+            {
+                text: 'Email',
+                action: function ( e, dt, node, config ) {
+                    $("#sendEmail").modal('show');
+                }
+            },
+            <?php } ?>
+            <?php if (isset($_SESSION['sendWhattsapp'])) { ?>
+            {
+                text: 'Whattsapp',
+                action: function ( e, dt, node, config ) {
+                    $("#sendWhats").modal('show');
+                }
+            },
+            <?php } ?>
+            <?php if (isset($_SESSION['pagamento'])) { ?>
+            {
+                text: 'Cielo',
+                action: function ( e, dt, node, config ) {
+                    $("#sendCielo").modal('show');
+                }
+            },
+            <?php } ?>
+            <?php if (isset($_SESSION['pagamento'])) { ?>
+            {
+                text: 'Pagseguro',
+                action: function ( e, dt, node, config ) {
+                    $("#sendPagSeguro").modal('show');
+                }
+            },
+            <?php } ?>
+            <?php if (isset($_SESSION['pagamento'])) { ?>
+            {
+                text: 'Paypal',
+                action: function ( e, dt, node, config ) {
+                    $("#sendPaypal").modal('show');
+                }
+            },
+            <?php } ?>
             {
                 extend:    'copyHtml5',
                 text:      '<i class="fa fa-files-o"></i>',

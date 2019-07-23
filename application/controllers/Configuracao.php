@@ -45,77 +45,20 @@ class Configuracao extends MY_Controller {
 			'data' => $this->ler_arquivo(self::$arquivo),
 			'fields' => $fields['data'][0]
 			);
-
 		$this->load->view('layout/main', $data);
-	}
-
-	public function add() {
-		$data = array('view' => 'configuracao/add');
-		$fields = $this->ler_arquivo(self::$arquivo, 0, -1, 0);
-		$data['fields'] = $fields['data'][0];
-
-
-		if (isset($_POST) && !empty($_POST)) {
-			$errors = array();
-			if(empty($errors)) {
-				$data = array(
-					'view' => 'pessoa/add',
-					'type' => 'success',
-					'msg' => 'Pessoa cadastrada com sucesso'
-					);
-			} else {
-				$data['type'] = 'warning';
-				$data['msg'] = $errors;
-				$data['data'] = $_POST;
-			}
-		}
-
-		$this->load->view('layout/main', $data);
-	}
-
-	public function ler_arquivo($arquivo, $linha = 0, $init = 0, $limit = 0) {
-		$data = array(
-			'type' => 'danger',
-			'msg' => 'Arquivo não encontrado!<br/>'
-			);
-
-		if (($handle = fopen(base_url('assets/data/'.$arquivo.".csv"), "r")) !== FALSE) {
-			$data = array(
-				'type' => 'warning',
-				'msg' => 'Arquivo vazio!<br>',
-				'data' => array(),
-				'rows' => 0
-				);
-
-			while (($content = fgetcsv($handle, 1000, ",")) !== FALSE) {
-				$num = count($content);
-				if ($linha > $init && (count($data['data']) <= $limit || $limit >= 0)) {
-					for ($c=0; $c < $num; $c++) {
-						$data['data'][$linha][] = utf8_encode($content[$c]);
-					}
-				}
-				$linha++;
-			}
-
-			if (isset($data['data']) && !empty($data['data'])) {
-				$data['type'] = 'success';
-				$data['msg'] = 'Arquivo carregado com sucesso!<br>';
-				$data['rows'] = $linha;
-			}
-			fclose($handle);
-		}
-		return $data;
 	}
 
 	/**
-	* @param [String] $arquivo file name
-	* @param [array] $line is an array of string values here
+		* @see Responsável por realizar upload do arquivo csv no diretório data, e salvar as configurações no arquivo install.csv
 	*/
-	public function inserir($arquivo, $line) {
-		$handle = fopen( base_url('assets/data/'.$arquivo.".csv"), "a");
-		fputcsv($handle, $line);
-		fclose($handle);
-		return true;
-	}
+	public function add() {
+		$target_dir = __DIR__.'/../../assets/data/';
+		$target_file = $target_dir . basename($_FILES["diretorio_planilha"]["name"]);
+		$uploadOk = 1;
+		move_uploaded_file($_FILES["diretorio_planilha"]["tmp_name"], $target_file);
+		$_POST['diretorio_planilha'] = $_FILES["diretorio_planilha"]["name"];
 
+		$this->inserir('install', $_POST);
+		header("Location: ".base_url());
+	}
 }

@@ -9,8 +9,8 @@
 				echo "<input type='text' value='".(!empty($_POST[$value])?$_POST[$value]:'')."' placeholder='$value' name='$value' class='form-control ".strtolower($value)."' />";
 			} ?>
 			<br/>
-			<input type="submit" value="Salvar" class="btn btn-primary pull-right" <?php empty($fields)?'disabled':''; ?>>
+			<a class="pull-left" href="<?php echo base_url('planilha'); ?>">Retornar a lista</a>
+			<input type="submit" value="Salvar" class="btn btn-primary right" <?php empty($fields)?'disabled':''; ?>>
 		</form>
 	</div>
-	<a href="<?php echo base_url('planilha'); ?>">Retornar a lista</a>
 </div>

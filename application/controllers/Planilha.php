@@ -6,7 +6,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Planilha extends MY_Controller {
 
-	public static $arquivo = "pessoas";
+	public static $arquivo = null;
+
+	public function __construct()
+	{
+		parent::__construct();
+		self::$arquivo = str_replace('.csv', '', $_SESSION["diretorio_planilha"]);
+	}
 
 	/**
 		* @see Responsável por listar os registros do excel .csv

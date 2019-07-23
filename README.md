@@ -6,7 +6,8 @@
 # gerenciador-de-planilha
 Sistema para gerenciamento de planilhas, com possibilidade de múltiplos acessos por vários usuários em uma rede (intranet), com geração de gráficos e estatísticas
 </p>
-
+<img src="assets/readme/first_page.png" width="48px" />
+<br/>
 <table border="1">
 	<tr>
 		<td colspan="3">
@@ -52,7 +53,7 @@ Sistema para gerenciamento de planilhas, com possibilidade de múltiplos acessos
 		<td>
 			<img src="assets/readme/angular.png" width="48px" />
 		</td>
-		<td>Angular</td>
+		<td>Angular 1.7.9</td>
 		<td></td>
 	</tr>
 	<tr>

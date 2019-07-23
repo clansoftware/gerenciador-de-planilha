@@ -1,0 +1,66 @@
+$(document).ready(function() {
+
+    function limpa_formulário_cpf() {
+        // Limpa valores do formulário de cpf.
+        $("#nome").val("");
+        $("#telefone").val("");
+        $("#celular").val("");
+        $("#email").val("");
+        $("#cep").val("");
+    }
+    
+    //Quando o campo cpf perde o foco.
+    $(".cpf").blur(function() {
+
+        //Nova variável "cpf" somente com dígitos.
+        var cpf = $(this).val().replace(/\D/g, '');
+
+        //Nova variável "data de nascimento" somente com dígitos.
+        var dt_nascimento = $(this).val().replace(/\D/g, '');
+
+        //Verifica se campo cpf possui valor informado.
+        if (cpf != "") {
+
+            //Expressão regular para validar o cpf.
+            var validacpf = /^[0-9]{8}$/;
+
+            //Valida o formato do cpf.
+            if(validacpf.test(cpf)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                $(".nome").val("...");
+                $(".telefone").val("...");
+                $(".celular").val("...");
+                $(".email").val("...");
+                $(".cep").val("...");
+
+                //Consulta o webservice viacpf.com.br/
+                $.getJSON("https://viacpf.com.br/ws/"+ cpf +"/json/?callback=?", function(dados) {
+
+                    if (!("erro" in dados)) {
+                        //Atualiza os campos com os valores da consulta.
+                        $(".nome").val(dados.logradouro);
+                        $(".telefone").val(dados.bairro);
+                        $(".celular").val(dados.localidade);
+                        $(".email").val(dados.uf);
+                        $(".cep").val(dados.ibge).click();
+                    } //end if.
+                    else {
+                        //cpf pesquisado não foi encontrado.
+                        limpa_formulário_cpf();
+                        alert("CPF não encontrado no BNE.");
+                    }
+                });
+            } //end if.
+            else {
+                //cpf é inválido.
+                limpa_formulário_cpf();
+                alert("Formato de CPF inválido.");
+            }
+        } //end if.
+        else {
+            //cpf sem valor, limpa formulário.
+            limpa_formulário_cpf();
+        }
+    });
+});
