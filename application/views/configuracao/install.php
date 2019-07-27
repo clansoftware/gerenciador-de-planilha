@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Habilitar envio de Email? </label><br>
-                    <input type="checkbox" class="custom-control-input" name="email" ng-model="checked_mail" aria-label="Toggle ngShow">
+                    <input type="checkbox" class="control-input" name="email" ng-model="checked_mail" aria-label="Toggle ngShow">
                     Habilitar envio de Email's aos possíveis emails identificados, através do Host:
 
                     <div class="check-element animate-show-hide" ng-show="checked_mail">
@@ -83,7 +83,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Habilitar envio de SMS? </label><br>
-                    <input type="checkbox" class="custom-control-input" name="sms" ng-model="checked_sms" aria-label="Toggle ngShow">
+                    <input type="checkbox" class="control-input" name="sms" ng-model="checked_sms" aria-label="Toggle ngShow">
                     Habilitar enviar SMS aos possíveis números de celular identificados, através da API de envio:
                     <div class="check-element animate-show-hide" ng-show="checked_sms">
                         <div class="form-inline" id="list_sms">
@@ -117,7 +117,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Habilitar envio de Whattsapp?</label><br>
-                 <input type="checkbox" class="custom-control-input" name="sendWhattsapp" />
+                 <input type="checkbox" class="control-input" name="sendWhattsapp" />
                  Habilitar envio de Whattsapp, a partir de uma aba logada externa.
                 </div>
 
@@ -131,7 +131,7 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label">Conectar a um Banco de Dados</label><br/>
-                    <input type="checkbox" class="custom-control-input" name="banco_de_dados" ng-model="checked_db_connect" aria-label="Toggle ngShow"/>
+                    <input type="checkbox" class="control-input" name="banco_de_dados" ng-model="checked_db_connect" aria-label="Toggle ngShow"/>
                     Habilitar Conexão a Base de Dados através do Host:
                     <div class="check-element animate-show-hide" ng-show="checked_db_connect">
                         <div class="form-inline" id="list_db">                    
@@ -164,16 +164,16 @@
 
                 <div class="form-group">
                     <label class="control-label">Habilitar cobrança de valores? </label><br>
-                    <input type="checkbox" class="custom-control-input" name="pagamento" ng-model="checked_pagamento" aria-label="Toggle ngShow">
+                    <input type="checkbox" class="control-input" name="pagamento" ng-model="checked_pagamento" aria-label="Toggle ngShow">
                     Habilitar o envio de cobrança com pagamento:
                     <div class="check-element animate-show-hide" ng-show="checked_pagamento">
                         <div class="form-inline" id="list_pag">
                             <div class="row">
                                 <div class="col-auto">
                                     <select class="form-control form-control-sm" name="service_pagamento[]">
-                                        <option value="mobipromo">CIELO</option>
-                                        <option value="paposms">PagSeguro</option>
-                                        <option value="zenvia">Paypal</option>
+                                        <option value="Cielo">CIELO</option>
+                                        <option value="Pagseguro">PagSeguro</option>
+                                        <option value="Paypal">Paypal</option>
                                     </select>
                                 </div>
 
@@ -207,7 +207,7 @@
                 <div class="form-group">
                     <label class="control-label">Controllar acesso via login</label>
                     <br/>
-                    <input type="checkbox" class="custom-control-input" name="controlle_acesso" ng-model="checked_control_acess" aria-label="Toggle ngShow"/>
+                    <input type="checkbox" class="control-input" name="controlle_acesso" ng-model="checked_control_acess" aria-label="Toggle ngShow"/>
                     Habilitar tela de login para acessar o sistema
                 </div>
                 <div class="check-element animate-show-hide" ng-show="checked_control_acess">
@@ -217,7 +217,7 @@
                                 <input class="form-control form-control-sm" type="text" name="login[]" placeholder="Login/Email" value="" />
                                 <input class="form-control form-control-sm" type="text" name="senha[]" placeholder="Senha" value="" />
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="custom-control-input" name="isAdmin[]" /> Administrador
+                                    <input type="checkbox" class="control-input" name="isAdmin[]" /> Administrador
                                 </label>
                             </div>
                         </div>

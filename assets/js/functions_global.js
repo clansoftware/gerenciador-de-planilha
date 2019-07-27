@@ -2,6 +2,15 @@ $(function() {
   $('.date, .data').mask('00/00/0000');
   $('.time, .tempo').mask('00:00:00');
   $('.date_time, data_hora').mask('00/00/0000 00:00:00');
+  $('.horario').mask('99:99');
+  $('.rg').mask('9999999999');
+  $('.categoria_cnh').mask('0000');
+  $('.serie_carteira_trabalho').mask('0000');
+  $('.cnh').mask('AAA', {'translation': {
+                            A: {pattern: /[A-Za-z0-9]/}
+                          }
+                        });
+  $('.pis').mask('00000000000');
   $('.cep').mask('00000-000');
   $('.phone, .fone, .telefone, .tel').mask('0000-0000');
   $('.phone_with_ddd').mask('(00) 0000-0000');

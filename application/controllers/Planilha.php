@@ -42,15 +42,7 @@ class Planilha extends MY_Controller {
 			$errors = array();
 			if(empty($errors)) {
 				if (MY_Controller::inserir(self::$arquivo, $_POST)) {
-					$fields = MY_Controller::ler_arquivo(self::$arquivo, 0, -1, 0);
-					$data = array(
-						'view' => 'planilha/index',
-						'type' => 'success',
-						'msg' => 'Pessoa cadastrada com sucesso',
-						'data' => MY_Controller::ler_arquivo(self::$arquivo),
-						'fields' => !empty($fields['data'][0])?$fields['data'][0]:array()
-						);
-					$data['filters'] = !empty($fields['data'][0])?$this->hasmap($fields['data'][0]):null;
+					redirect(base_url(strtolower(__CLASS__)), 'refresh');
 				} else {
 					$data = array(
 						'view' => 'planilha/index',
@@ -76,12 +68,12 @@ class Planilha extends MY_Controller {
 			if(count($arr) > 1) {
 				foreach ($arr as $k => $val) {
 					if(strtolower($val)=='nascimento' || strtolower($val)=='nascimento') {
-						$data['needAge'] = $key;
+						$data['needAge'] = $key+1;
 					}
 				}
 			} else {
 				if(strtolower($value)=='nascimento' || strtolower($value)=='nascimento') {
-					$data['needAge'] = $key;
+					$data['needAge'] = $key+1;
 				}
 			}
 		}

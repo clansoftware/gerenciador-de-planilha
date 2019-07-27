@@ -88,20 +88,23 @@
                     echo "<option value='$value'>".strtoupper($value)." - ".json_decode($_SESSION['email_email'])[$ind]."</option>";
                 } ?>
             </select>
-            <input type="checkbox" name="bg_op" checked="true"> Executar em segundo plano
-            <label>Assunto</label>
-            <input type="text" class="form-control" placeholder="Assunto do email"/>
-            <label>Conteúdo</label>
-            <textarea class="form-control" placeholder="Conteúdo do email" rows="1"></textarea>
+
+            Modelo:
+            <select class="form-controll">
+                <?php for ($i=0; $i < 4; $i++) {
+                    echo "<option value=99>99</option>";
+                } ?>
+            </select>
 
             <table class="table table-sm table-hover table-striped table-bordered table-borderless display">
                 <thead>
                     <tr>
                         <th>Registro</th>
+                        <th>Nome</th>
                         <th>Email</th>
                     </tr>
                 </thead>
-                <tbody class="list_seleted_paypal">
+                <tbody class="list_seleted_mail">
 
                 </tbody>
                 <tfoot>
@@ -122,20 +125,21 @@
     </div>
 </div>
 
-<div id="sendCielo" class="modal fade" role="dialog">
+<div id="sendPag" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Envio de Cielo</h5>
+            <h5 class="modal-title">Envio de Pagamento</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
             <div class="input-group">
-                Token de Saída:
-                <select class="custom-select">
-                    <?php foreach ($pyapal_accounts as $key => $value) {
-                        echo "<option value='$value'>$value</option>";
+                Saída:
+                <select class="form-controll">
+                    <?php foreach (json_decode($_SESSION['service_pagamento']) as $key => $value) {
+                        $ind = MY_Controller::get_next_key($key, json_decode($_SESSION['usuario_pagamento']));
+                        echo "<option value='$value'>".strtoupper($value)." - ".json_decode($_SESSION['usuario_pagamento'])[$ind]."</option>";
                     } ?>
                 </select>
 
@@ -154,11 +158,11 @@
                     <tr>
                         <th>Registro</th>
                         <th>Cartão</th>
+                        <th>Bandeira</th>
                         <th>Validade</th>
-                        <th>Vencimento</th>
                     </tr>
                 </thead>
-                <tbody class="list_seleted_paypal">
+                <tbody class="list_seleted_pag">
 
                 </tbody>
                 <tfoot>
@@ -172,114 +176,7 @@
             </table>
           </div>
           <div class="modal-footer">
-            <div lcass="pull-left left">
-                Executar em segundo plano:
-                <input type="checkbox" name="bg_op" checked="true">
-            </div>
-            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-warning btn-sm">Iniciar</button>
-          </div>
-        </div>
-    </div>
-</div>
-
-<div id="sendPagSeguro" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Envio de PagSeguro</h5>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            Token de Saída:
-            <select class="form-controll">
-                <?php foreach ($pyapal_accounts as $key => $value) {
-                    echo "<option value='$value'>$value</option>";
-                } ?>
-            </select>
-            Executar em segundo plano:
-            <input type="checkbox" name="bg_op" checked="true">
-            <label>Custo Unitário</label>
-            <input type="text" class="form-control dinheiro" value="" min="1" />
-            <label>Total Previsionado</label>
-            <input type="text" class="form-control dinheiro" value="0,00" />
-
-            <table class="table table-sm table-hover table-striped table-bordered table-borderless display">
-                <thead>
-                    <tr>
-                        <th>Registro</th>
-                        <th>Cartão</th>
-                        <th>Validade</th>
-                        <th>Vencimento</th>
-                    </tr>
-                </thead>
-                <tbody class="list_seleted_paypal">
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="4">
-                            <b>Total:</b>
-                            <font class="total_row">0</font>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-warning btn-sm">Iniciar</button>
-          </div>
-        </div>
-    </div>
-</div>
-
-<div id="sendPaypal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title">Envio de PayPal</h6>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            Token de Saída:
-            <select class="form-controll">
-                <?php foreach ($pyapal_accounts as $key => $value) {
-                    echo "<option value='$value'>$value</option>";
-                } ?>
-            </select>
-            Executar em segundo plano:
-            <input type="checkbox" name="bg_op" checked="true">
-            <label>Custo Unitário</label>
-            <input type="text" class="form-control dinheiro" value="" min="1" />
-            <label>Total Previsionado</label>
-            <input type="text" class="form-control dinheiro" value="0,00" />
-
-            <table class="table table-sm table-hover table-striped table-bordered table-borderless display">
-                <thead>
-                    <tr>
-                        <th>Registro</th>
-                        <th>Cartão</th>
-                        <th>Validade</th>
-                        <th>Vencimento</th>
-                    </tr>
-                </thead>
-                <tbody class="list_seleted_paypal">
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="4">
-                            <b>Total:</b>
-                            <font class="total_row">0</font>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-          </div>
-          <div class="modal-footer">
+            <input type="checkbox" name="bg_op" checked="true"> Executar em segundo plano
             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fechar</button>
             <button type="button" class="btn btn-warning btn-sm">Iniciar</button>
           </div>

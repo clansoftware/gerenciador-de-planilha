@@ -89,7 +89,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('configuracao'); ?>">Configurações</a>
+          <a class="nav-link" href="<?php echo base_url('configuracao/install'); ?>">Configurações</a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url('configuracao'); ?>">Meus Padrões</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url('configuracao'); ?>">Minhas Configurações</a>
         </li>
       </ul>
       <?php } ?>

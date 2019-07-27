@@ -12,10 +12,19 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($data['data'] as $key => $value) { ?>
+            <?php 
+                $map = array(
+                    'key_email' => null,
+                    'key_nome' => null,
+                    'key_cartao' => null,
+                    'key_bandeira' => null,
+                    'key_validade' => null
+                    );
+                foreach ($data['data'] as $key => $value) { ?>
             <tr>
                 <td></td>
                 <?php foreach ($fields as $i => $val) {
+                    $value[$i]=utf8_decode($value[$i]);
                     if (strtolower($fields[$i]) == "celular") {
                         $number = MY_Controller::isWhattsapp($value[$i]);
                         if($number!=false) {
@@ -27,14 +36,27 @@
                         }
                     } else if (str_replace('-', '', strtolower($fields[$i])) == "email") {
                         $email = MY_Controller::isEmail($value[$i]);
+                        $map['key_email'] = $i+1;
                         if($email) {
                             echo "<td data-toggle='modal' data-target='#sendEmail'>$value[$i]</td>";
                         } else {
                             echo "<td>$value[$i]</td>";
                         }
+                    } else if (str_replace('-', '', strtolower($fields[$i])) == "nome" || strstr(strtolower($fields[$i]), "nome") ) { 
+                        $map['key_nome'] = $i+1;
+                        echo "<td>".$value[$i]."</td>";
+                    } else if (str_replace('-', '', strtolower($fields[$i])) == "cartao" || strstr(strtolower($fields[$i]), "cartao") ) { 
+                        $map['key_cartao'] = $i+1;
+                        echo "<td>".$value[$i]."</td>";
+                    } else if (str_replace('-', '', strtolower($fields[$i])) == "bandeira" || strstr(strtolower($fields[$i]), "bandeira") ) { 
+                        $map['key_bandeira'] = $i+1;
+                        echo "<td>".$value[$i]."</td>";
+                    } else if (str_replace('-', '', strtolower($fields[$i])) == "validade" || strstr(strtolower($fields[$i]), "validade") ) { 
+                        $map['key_validade'] = $i+1;
+                        echo "<td>".$value[$i]."</td>";
                     } else {
 
-                        echo "<td>".utf8_decode($value[$i])."</td>";
+                        echo "<td>".$value[$i]."</td>";
                     }
                 } ?>
             </tr>
@@ -91,10 +113,27 @@ $(document).ready(function() {
         },
         order: [[ 1, 'asc' ]],
         dom: 'Bfrtip',
+        lengthMenu: [
+            [ 25, 50, 100, 150, -1 ],
+            [ '25 linhas', '50 linhas', '100 linhas', '150 linhas', 'Todas linhas' ]
+        ],
         buttons: [
+            'pageLength',
             {
                 extend: 'colvis',
-                text: 'Colunas Visíveis',
+                text: 'Col Visíveis',
+            },
+            {
+                text: 'Sel Tudo',
+                action: function () {
+                    table.rows().select();
+                }
+            },
+            {
+                text: 'Deselecionar',
+                action: function () {
+                    table.rows().deselect();
+                }
             },
             {
                 text: 'Cadastrar',
@@ -110,10 +149,20 @@ $(document).ready(function() {
                 }
             },
             <?php } ?>
-            <?php if (isset($_SESSION['email'])) { ?>
+            <?php if (isset($_SESSION['email']) && !is_null($map['key_email']) && !is_null($map['key_nome'])) { ?>
             {
                 text: 'Email',
-                action: function ( e, dt, node, config ) {
+                action: function ( e, dt, node, config) {                    
+                    $(".list_seleted_mail").html('');
+                    $('.total_row').html('0');
+
+                    var rowData = table.rows( { selected: true } ).data().toArray();
+                    var data = JSON.stringify( rowData );
+                    console.log(rowData);
+                    for (var i = rowData.length - 1; i >= 0; i--) {
+                        $(".list_seleted_mail").prepend( '<tr><td>'+(i+1)+'</td><td>'+rowData[i][<?php echo is_null($map['key_nome'])?1:$map['key_nome']; ?>]+'</td><td>'+rowData[i][<?php echo $map['key_email']; ?>]+'</td></tr>' );
+                    };
+                    $('.total_row').html(rowData.length);
                     $("#sendEmail").modal('show');
                 }
             },
@@ -126,27 +175,21 @@ $(document).ready(function() {
                 }
             },
             <?php } ?>
-            <?php if (isset($_SESSION['pagamento'])) { ?>
+            <?php if (isset($_SESSION['pagamento']) && !is_null($map['key_cartao']) && !is_null($map['key_bandeira']) && !is_null($map['key_validade'])) { ?>
             {
-                text: 'Cielo',
+                text: 'Pagamentos',
                 action: function ( e, dt, node, config ) {
-                    $("#sendCielo").modal('show');
-                }
-            },
-            <?php } ?>
-            <?php if (isset($_SESSION['pagamento'])) { ?>
-            {
-                text: 'Pagseguro',
-                action: function ( e, dt, node, config ) {
-                    $("#sendPagSeguro").modal('show');
-                }
-            },
-            <?php } ?>
-            <?php if (isset($_SESSION['pagamento'])) { ?>
-            {
-                text: 'Paypal',
-                action: function ( e, dt, node, config ) {
-                    $("#sendPaypal").modal('show');
+                    $(".list_seleted_pag").html('');
+                    $('.total_row').html('0');
+
+                    var rowData = table.rows( { selected: true } ).data().toArray();
+                    var data = JSON.stringify( rowData );
+                    console.log(rowData);
+                    for (var i = rowData.length - 1; i >= 0; i--) {
+                        $(".list_seleted_pag").prepend( '<tr><td>'+(i+1)+'</td><td>'+rowData[i][<?php echo is_null($map['key_cartao'])?1:$map['key_cartao']; ?>]+'</td><td>'+rowData[i][<?php echo $map['key_bandeira']; ?>]+'</td><td>'+rowData[i][<?php echo $map['key_validade']; ?>]+'</td></tr>' );
+                    };
+                    $('.total_row').html(rowData.length);
+                    $("#sendPag").modal('show');
                 }
             },
             <?php } ?>

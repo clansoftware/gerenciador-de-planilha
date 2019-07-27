@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Configuracao extends MY_Controller {
 
-	public static $arquivo = 'configuracao';
+	public static $arquivo = 'install';
 
 	/**
 		* @see Responsável por listar~os registros do excel .csv
@@ -20,15 +20,18 @@ class Configuracao extends MY_Controller {
 				'type' => 'success',
 				'type' => 'Criando nova configuração',
 				'data' => $this->ler_arquivo(self::$arquivo),
-				'fields' => $fields['data'][0]
+				'fields' => !empty($fields['data'])?$fields['data'][0]:null
 				);
 
 			$this->load->view('layout/main', $data);
 		} else {
+			$fields = $this->ler_arquivo(self::$arquivo, 0, -1, 0);
 			$data = array(
 				'view' => 'configuracao/edit',
 				'type' => 'danger',
-				'type' => 'Atenção você já tem uma configuração !'
+				'type' => 'Atenção você já tem uma configuração !',
+				'data' => $this->ler_arquivo(self::$arquivo, 0, -1, 0),
+				'fields' => $fields['data'][0]
 				);
 			$this->load->view('layout/main', $data);
 		}
